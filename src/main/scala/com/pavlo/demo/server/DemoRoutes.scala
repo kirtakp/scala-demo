@@ -25,10 +25,7 @@ object DemoRoutes {
       case GET -> Root / USER / id =>
         for {
           option <- US.get(id)
-          resp <- option match {
-            case Some(user) => Ok(user)
-            case None => NotFound()
-          }
+          resp <- option.fold(NotFound())(Ok(_))
         } yield resp
 
       case GET -> Root / USER :? OptionalLimitQueryParamMatcher(limit) =>

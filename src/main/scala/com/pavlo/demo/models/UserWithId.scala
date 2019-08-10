@@ -9,8 +9,8 @@ import org.mongodb.scala.bson.ObjectId
 case class UserWithId(_id: ObjectId, name: String, age: Int)
 
 object UserWithId {
-  def apply(_id: ObjectId, user: User): UserWithId =
-    UserWithId(_id, user.name, user.age)
+  def apply(user: User): UserWithId =
+    UserWithId(new ObjectId(), user.name, user.age)
 
   implicit val userWithIdEncoder: Encoder[UserWithId] = new Encoder[UserWithId] {
     final def apply(user: UserWithId): Json = Json.obj(
